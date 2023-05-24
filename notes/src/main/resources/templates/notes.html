@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+</head>
+<body>
+
+    <h1>ADD YOUR NOTE</h1>
+    <form method="post" th:action ="@{/notes}" th:object = "${noteForm}">
+        <label for="select-option">IMPORTANCE:</label>
+        <select th:field="*{importance}" id="select-option">
+            <option th:each = "imp : ${(T(com.example.notes.domain.Importance).values())}"
+                    th:value = "${imp}"
+                    th:text = "${imp}")></option>
+        </select>
+        <br><br>
+        <label for="text-field">Your text:</label>
+        <input type="text" th:field="*{text}" id="text-field" >
+        <br><br>
+        <input type="submit" value="Add">
+    </form>
+
+    <br><br>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>IMPORTANCE</th>
+            <th>DESCRIPTION</th>
+            <th>TIME STAMP</th>
+        </tr>
+        <tr th:each = "n: ${note}">
+            <td th:text = "${n.getId()}"></td>
+            <td th:text = "${n.getImportance()}"></td>
+            <td th:text = "${n.getText()}"></td>
+            <td th:text = "${n.getTimestamp()}"></td>
+        </tr>
+    </table>
+</body>
+</html>
